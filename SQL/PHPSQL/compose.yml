@@ -1,0 +1,24 @@
+services:
+  phpdb:
+    build: .
+    container_name: phpsql
+    environment:
+      MYSQL_USER_FILE: /run/secrets/db_user
+      MYSQL_PASSWORD_FILE: /run/secrets/db_pwd
+      MYSQL_ROOT_PASSWORD_FILE: /run/secrets/db_root_pwd
+  secrets:
+    - db_user
+    - db_pwd
+    - db_root_pwd
+  volumes:
+    - .data:/var/lib/mysql
+secrets:
+  db_user:
+    file: ./db_user.txt
+  db_pwd:
+    file: ./db_pwd.txt
+  db_root_pwd:
+    file: ./db_root_pwd.txt
+
+volumes:
+  .data:
